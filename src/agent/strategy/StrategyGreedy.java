@@ -30,23 +30,21 @@ public class StrategyGreedy extends StrategyExploration{
 	public Action getAction(Etat _e)
 	{
 		//Retourne null si l'état est absorbant
-		if(this.getAgent().getEnv().estAbsorbant())
-			return null;
-		if(getAgent().getPolitique(_e).size() <= 0) return null;
-		
+		if(this.getAgent().getEnv().estAbsorbant()) return null;
+
 		//JAVA 8
-		//si le random généré < epsilon on choisi la politique
 		if(rand.nextDouble() < epsilon)
 		{
 			Action action = getAgent().getPolitique(_e)
 					.stream().findFirst()
 					.orElse(null);
-			
-			if(action == null)
-				return getRandom(_e);
+
+			if(action == null) {
+				return getRandom(_e); }
 			else
 				return action;
 		}
+
 		else
 		{// sinon on choisi de manière aléatoire
 			return getRandom(_e);
