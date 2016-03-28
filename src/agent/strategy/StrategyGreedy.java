@@ -35,8 +35,8 @@ public class StrategyGreedy extends StrategyExploration{
 		if(getAgent().getPolitique(_e).size() <= 0) return null;
 		
 		//JAVA 8
-		//si le random généré > epsilon on choisi la politique
-		if(rand.nextDouble() > epsilon)
+		//si le random généré < epsilon on choisi la politique
+		if(rand.nextDouble() < epsilon)
 		{
 			Action action = getAgent().getPolitique(_e)
 					.stream().findFirst()

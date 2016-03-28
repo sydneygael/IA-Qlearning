@@ -3,6 +3,7 @@ package agent.rlagent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
 
@@ -45,22 +46,12 @@ public class QLearningAgent extends RLAgent{
 
 		List<Action> actions = new ArrayList<Action>();
 
-		//Récupération de la valeur maximum
-		Double max = this.getValeur(e);
-
-		HashMap <Action, Double> actionSet = this.qValues.get(e);
-
-		if(actionSet != null) {
-			//JAVA 8
-			//Parcours des actions pour l'état
-			actionSet.entrySet().stream().forEach(pair -> {
-				//test si la valeur max de l'etat est égal à celle de l'action
-				if(max.equals(pair.getValue())) {
-					//si oui on ajoute l'action à la liste
-					actions.add(pair.getKey());
-				}
-			});
-		}
+		Double valueMax = this.getValeur(e);
+		if(qValues.get(e) != null)
+			for (Map.Entry<Action, Double> entry : qValues.get(e).entrySet()) {
+				if (valueMax.equals(entry.getValue()))
+					actions.add(entry.getKey());
+			}
 
 		return actions;
 
